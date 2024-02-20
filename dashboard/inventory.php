@@ -146,12 +146,14 @@
                                             while($row = $result->fetch_assoc())
                                             {
 												$count++;
+
+												$proId =$row["id"];
                                         ?>
 												<tr>
 													<td><center><?php echo $count; ?></center></td>
 													<td><center><?php echo $row["name"] ?></center></td>
 													<!-- <td><center><input type="checkbox" id="productId<?php echo $count; ?>" name="productId[]" value="<?php echo $row["id"] ?>"></center></td> -->
-													<!-- <input type="hidden" id = "productquantity<?php echo $count ?>" value="<?php echo $row["available_quentity"] ?>"> -->
+													<input type="hidden" name="productId[]" id = "productId<?php echo $count ?>" value="<?php echo $row["id"] ?>">
 													<td><center><?php echo $row["available_quentity"] ?></center></td>
                                                     <?php
                                                     $storeSql1 = "SELECT * FROM `login`WHERE control ='2' AND status='0'";
@@ -162,11 +164,16 @@
 													$i=0;
 													while($storeRow1 = $storeResult1->fetch_assoc()){
 														$i++;
-														?>
-														<input type="hidden" name="productId[<?php echo $count;?>]" value="<?php echo $row["id"] ?>">
-														<input type="hidden" name="storeid[<?php echo $count;?>][]" id="storeid<?php echo $i?>" value="<?php echo $storeRow1['id']?>">
 
-                                                        <td><input type="number" class="form-control" id="<?php echo $i;?>storequantity1<?php echo $count ?>" name="storequantity[<?php echo $count;?>][]" onkeyup = storequantity(<?php echo $count ?>,<?php echo $i?>)></td>
+														$sid = $storeRow1['id'];
+														$inventorySql = "SELECT * FROM inventory WHERE product_id='$proId' AND store_id='$sid'";
+														$inventoryResult = $conn->query($inventorySql);
+														$inventoryRow = $inventoryResult->fetch_assoc();
+														?>
+														<input type="hidden" name="storeid[<?php echo $count;?>][]" id="storeid<?php echo $i?>" value="<?php echo $storeRow1['id']?>">
+                                                        <td><input type="number" class="form-control" id="<?php echo $i;?>storequantity1<?php echo $count ?>" name="storequantity[<?php echo $count;?>][]">
+														<p style="color:red">Available: <b><?php echo $inventoryRow['store_quantity']?></b></p>
+														</td>
                                                         <?php
                                                     }
                                                     ?>

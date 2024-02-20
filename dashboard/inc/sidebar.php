@@ -91,7 +91,31 @@
 							<span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
 		                </a>
 						<ul>
-							<li>
+							<a href="#" class="ttr-material-button">
+		                		<span class="ttr-label">Warehouse&nbsp;Inventory</span>
+								<span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+		                	</a>
+							<ul>
+								<li>
+									<a href="warehouse_inventory.php" class="ttr-material-button"><span class="ttr-label">Inventory</span></a>
+								</li>
+								<li>
+									<a href="warehouse_inventory_list.php" class="ttr-material-button"><span class="ttr-label">Inventory List</span></a>
+								</li>
+							</ul>
+							<a href="#" class="ttr-material-button">
+		                		<span class="ttr-label">Store&nbsp;Inventory</span>
+								<span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+		                	</a>
+							<ul>
+								<li>
+									<a href="store_inventory.php" class="ttr-material-button"><span class="ttr-label">Inventory</span></a>
+								</li>
+								<li>
+									<a href="store_inventory_list.php" class="ttr-material-button"><span class="ttr-label">Inventory List</span></a>
+								</li>
+							</ul>
+							<!-- <li>
 		                		<a href="goodoninventory.php" class="ttr-material-button"><span class="ttr-label">Goodon Inventory</span></a>
 		                	</li>
 							<li>
@@ -99,7 +123,7 @@
 		                	</li>
 							<li>
 		                		<a href="listinventory.php" class="ttr-material-button"><span class="ttr-label">List Inventory</span></a>
-		                	</li>
+		                	</li> -->
 		                </ul>
 					</li>
 					<!-- <li>
@@ -160,6 +184,34 @@
 		                	<span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
 		                </a>
 		                <ul>
+							<li>
+								<a href="#" class="ttr-material-button">
+									<span class="ttr-icon"><img class="imgs" src="assets/images/icons/reports.svg"></span>
+		                			<span class="ttr-label">warhouse Inventory Reports</span>
+		                			<span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+		                		</a>
+								<ul>
+									<li>
+										<a href="warehouse_inventory_report.php" class="ttr-material-button"><span class="ttr-label">Inventory Report</span></a>
+									</li>
+									<li>
+										<a href="warehouse_wastage_report.php" class="ttr-material-button"><span class="ttr-label">wastage Report</span></a>
+									</li>
+								</ul>
+								<a href="#" class="ttr-material-button">
+									<span class="ttr-icon"><img class="imgs" src="assets/images/icons/reports.svg"></span>
+		                			<span class="ttr-label">store Inventory Reports</span>
+		                			<span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+		                		</a>
+								<ul>
+									<li>
+										<a href="store_inventory_report.php" class="ttr-material-button"><span class="ttr-label">Inventory Report</span></a>
+									</li>
+									<li>
+										<a href="store_wastage_report.php" class="ttr-material-button"><span class="ttr-label">wastage Report</span></a>
+									</li>
+								</ul>
+							</li>
 		                	<li>
 		                		<a href="report-hotel.php" class="ttr-material-button"><span class="ttr-label">Store</span></a>
 		                	</li>

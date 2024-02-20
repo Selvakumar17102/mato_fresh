@@ -139,41 +139,47 @@
 				<!-- Your Profile Views Chart -->
 				<div class="col-lg-12">
 					<div class="widget-box">
+						<p style="text-align: center; color: green;"><?php echo $_REQUEST['msg']; ?></p>
+						<form method="post">
 						<div class="card-header">
-							<h3>New Scheme</h3>
+							<div class="row">
+								<div class="col-md-3">
+									<h3>Edit Inventory</h3>
+								</div>
+								<div class="col-md-3">
+									
+									<input type="date" name="date" class="form-control" placeholder="Scheme Name" value="<?php echo date('Y-m-d');?>" required>
+								</div>
+								<div class="col-4"></div>
+								<div class="col-md-2">
+									<input type="text" name="product" class="form-control" placeholder="Scheme Days" value="<?php echo $row['name']?>" required readonly>
+								</div>
+							</div>
 						</div>
 						<div class="widget-inner">
-							<p style="text-align: center; color: green;"><?php echo $_REQUEST['msg']; ?></p>
-								<form method="post">
-                                    <div class="form-group row">
-                                        <div class="col-sm-2">
-                                            <input type="date" name="date" class="form-control" placeholder="Scheme Name" value="<?php echo date('Y-m-d');?>" required>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <input type="text" name="product" class="form-control" placeholder="Scheme Days" value="<?php echo $row['name']?>" required readonly>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <select name="store" class="form-control" id="store" required>
-												<?php
-												$storeSql = "SELECT * FROM `login`WHERE control ='2' AND status='0'";
-												$storeResult = $conn->query($storeSql);
-												while($storeRow = $storeResult->fetch_assoc()){
-													?>
-													<option value="<?php echo $storeRow['id']?>"><?php echo $storeRow['username']?></option>
-													<?php
-												}
-												?>
-											</select>
-                                        </div>
-										<div class="col-sm-3">
-                                            <input type="number" name="quentity" class="form-control" placeholder="Store Quentity" required>
-                                        </div>
-										<div class="col-sm-3">
-                                            <input type="submit" name="submit" class="btn" value="Update">
-                                        </div>
-                                    </div>
-								</form>
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <select name="store" class="form-control" id="store" required>
+										<?php
+										$storeSql = "SELECT * FROM `login`WHERE control ='2' AND status='0'";
+										$storeResult = $conn->query($storeSql);
+										while($storeRow = $storeResult->fetch_assoc()){
+											?>
+											<option value="<?php echo $storeRow['id']?>"><?php echo $storeRow['username']?></option>
+											<?php
+										}
+										?>
+									</select>
+                                </div>
+								<div class="col-sm-3">
+                                    <input type="number" name="quentity" class="form-control" placeholder="Store Quentity" required>
+                                </div>
+								<div class="col-sm-3">
+                                    <input type="submit" name="submit" class="btn" value="Update">
+                                </div>
+                            </div>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>

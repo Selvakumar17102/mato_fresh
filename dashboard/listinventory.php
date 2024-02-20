@@ -139,7 +139,7 @@
                                         <tr>
                                             <th>S.NO</th>
 											<th>Store</th>
-											<th>Master Quentity</th>
+											<!-- <th>Master Quentity</th> -->
 											<th>Store Quentity</th>
 											<th>Action</th>
                                         </tr>
@@ -163,7 +163,7 @@
 													<tr>
 														<td><center><?php echo $count; ?></center></td>
                                                         <td><center><?php echo $productRow['name'] ?></center></td>
-														<td><center><?php echo $row['master_quantity'];?></center></td>
+														<!-- <td><center><?php echo $row['master_quantity'];?></center></td> -->
 														<td>
 															<center>
 															<select class="form-control">

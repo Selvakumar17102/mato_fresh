@@ -2,33 +2,47 @@
 include("inc/dbconn.php");
 
 if(isset($_POST['inventorysubmit'])){
+
     $date = $_POST['inventorydate'];
-    $storequantity= $_POST['storequantity'];
-
-   
-    $productId =$_POST['productId'];
-
-    echo $productId;
-    die();
-
     
+    $productId =$_POST['productId'];
+    $productAvailable =$_POST['productAvailable'];
 
-    // foreach ($productId as $key => $value) {
-    //         $product = $productId[$key];
-    //         $master = $masterquantity[$key];
+    $storeId = $_POST['storeId'];
+
+    $storequantity= $_POST['storequantity'];
+    foreach ($storequantity as $skey => $svalue) {
+
+        $proId = $productId[$skey-1];
+        $proAvailable = $productAvailable[$skey-1];
+
+        $total=0;
+        foreach ($svalue as $key => $value) {
+            $stoId = $storeId[$skey][$key];
             
-    //         $storeid=$_POST['storeid'][$key+1];
+            if($value){
+                $total += $value;
             
-            // foreach ($storeid as $skey => $svalue) {
-            //     $storequantityvalue = $storequantity[$key+1][$skey];
+                $inventorySql = "INSERT INTO store_inventory (product_id,store_id,store_quantity) VALUES('$proId','$stoId','$value')";
+                if($conn->query($inventorySql)===TRUE){
 
-            //     $store = $_POST['storeid'][$key+1][$skey];
+                    $inventorySql1 = "INSERT INTO store_inventory_history (date,product_id,store_id,store_quantity) VALUES('$date','$proId','$stoId','$value')";
+                    $insertResult1 = $conn->query($inventorySql1);
+                }
+            }
+        }
+        if($total){
 
-            //     $inventorySql = "INSERT INTO inventory (inventory_date,product_id,master_quantity,store_id,store_quantity) VALUES('$date','$product','$master','$store','$storequantityvalue')";
-            //     if($conn->query($inventorySql)=== TRUE){
-            //         header('location:inventory.php?msg=Inventory Added Successfully.');
-            //     }
-            // }
-    // }
+            $totalvalue = $proAvailable-$total;
+
+            $updateSql = "UPDATE warehouse_inventory SET available_quentity='$totalvalue' WHERE product_id='$proId'";
+            $updateResult = $conn->query($updateSql);
+        }
+    }
+
+    if($insertResult1 === TRUE){
+        header('location:store_inventory.php?msg=Store Inventory Added Successfully.');
+    }
+
 }
 ?>

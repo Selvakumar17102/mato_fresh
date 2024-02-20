@@ -134,35 +134,25 @@
                                             <th>S.NO</th>
 											<th>Product name</th>
 											<th>Product Quantity</th>
+											<th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                         <?php
-                                            // $sql = "SELECT * FROM inventory a LEFT OUTER JOIN product b ON a.product_id = b.id LEFT OUTER JOIN login c on a.store_id = c.id WHERE a.store_id=$headid";
-                                            $sql = "SELECT * FROM `product` WHERE status = '1' ORDER BY name ASC";
+                                            $sql = "SELECT *,b.id as pid FROM `store_inventory` a LEFT OUTER JOIN product b ON a.product_id=b.id WHERE a.store_id='$headid'";
                                             $result = $conn->query($sql);
                                             $count = 0;
                                             while($row = $result->fetch_assoc())
                                             {
 												$count++;
-                                                $id = $row['id'];
-												
-
-                                                $inventorySql = "SELECT * FROM inventory WHERE product_id = '$id' AND store_id = '$headid' AND inventory_date = '$date'";
-                                                $inventoryResult = $conn->query($inventorySql);
-                                                $inventoryrow = $inventoryResult->fetch_assoc();
-                                                if($inventoryrow['store_quantity'] == NULL){
-                                                    $storevalue = "0";
-                                                }else{
-                                                    $storevalue = $inventoryrow['store_quantity'];
-                                                }
 
                                         ?>
 												<tr>
 													<td><center><?php echo $count; ?></center></td>
 													<td><center><?php echo $row["name"] ?></center></td>
-													<td><center><input type="number" class="form-control" name="masterquantity" id="masterquantity<?php echo $count; ?>" value="<?php echo $storevalue; ?>" readonly></center></td>
+													<td><center><?php echo $row['store_quantity']; ?></center></td>
+													<td><center><a href="store_wastage_inventory.php?id=<?php echo $row['pid']; ?>"><img src="assets/images/icons/delete.svg"></a></center></td>
 												</tr>
                                         <?php
                                             }
@@ -202,20 +192,20 @@ function handleClick(id){
 	alert(id);
 	
 }
-function masteramt(id) {
+// function masteramt(id) {
    
-	let masterquntity = document.getElementById("masterquantity"+id).value;
-	let totalstore = document.getElementById("totalstore").value;
+// 	let masterquntity = document.getElementById("masterquantity"+id).value;
+// 	let totalstore = document.getElementById("totalstore").value;
 
-	for(var i=1;i<= totalstore;i++){
+// 	for(var i=1;i<= totalstore;i++){
 
-		var perstore = masterquntity/totalstore;
-		document.getElementById(i+"storequantity"+id).value = perstore;
-	}
+// 		var perstore = masterquntity/totalstore;
+// 		document.getElementById(i+"storequantity"+id).value = perstore;
+// 	}
 	
-	let storeid = document.getElementById("storeid"+id).value;
+// 	let storeid = document.getElementById("storeid"+id).value;
     
-}
+// }
 
 </script>
 </body>
