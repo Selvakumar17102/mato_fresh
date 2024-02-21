@@ -375,6 +375,7 @@
 															<td style="border: none !important">
 																<a onClick="return confirm('Sure to Delete this Branch!');" href="delete-hotel.php?id=<?php echo $row["id"] ?>"><img src="assets/images/icons/delete.svg" alt=""></a>
 															</td>
+															<a onclick="poslogin(<?php echo $row['id'] ?>)"><img src="https://uxwing.com/wp-content/themes/uxwing/download/editing-user-action/create-account-icon.png" alt="" width="20" height="20"></a>
 														</tr>
 													</table>
 												</td>
@@ -401,7 +402,7 @@
 <script src="assets/vendors/datatables/dataTables.min.js"></script>
 <script src="assets/js/admin.js"></script>
 <script>
-// Start of jquery datatable
+	// Start of jquery datatable
             $('#dataTableExample1').DataTable({
                 "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
                 "lengthMenu": [
@@ -484,6 +485,31 @@
 	var fileName = $(this).val().split("\\").pop();
 	$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 	});
+</script>
+
+<script>
+	function poslogin(id) {
+
+	  let user = prompt("Please enter Username:");
+	  let pass = prompt("Please enter Password:");
+	  if (user == null || user == "" && pass == null || pass == "") {
+	    alert("User cancelled.");
+	  } else {
+		// alert(id);
+		$.ajax({
+			type: "POST",
+    	    url: "create_pos_login.php",
+    	    data:{
+				'id':id,
+				'user':user,
+				'pass':pass,
+			},
+    	    success: function(data){
+				alert(data);
+    	    }
+    	});
+	}
+	}
 </script>
 </body>
 </html>

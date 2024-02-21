@@ -154,13 +154,15 @@
                                                     <td><center><?php echo $storeRow['username']?></center></td>
                                                     <td>
                                                         <center>
+															<select class="form-control">
                                                             <?php
                                                             $sql = "SELECT * FROM `store_inventory` a LEFT OUTER JOIN product b ON a.product_id=b.id WHERE a.store_id='$stoId'";
                                                             $result = $conn->query($sql);
                                                             while($row = $result->fetch_assoc()){
-                                                                echo $row['name']." = ".$row['store_quantity']." kg<br>";
+                                                                echo "<option>".$row['name']." = ".$row['store_quantity']." kg"."</option>";
                                                             }
                                                             ?>
+															</select>
                                                         </center>
                                                     </td>
                                                     <!-- <td>
