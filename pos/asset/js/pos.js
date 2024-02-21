@@ -249,6 +249,7 @@ const initCart = (existingCart) => {
 	document.getElementById('gstTotal').innerHTML = `₹ ${gstTotal}`
 
 	document.getElementById('grandTotal').innerHTML = `₹ ${subTotal + gstTotal}`
+	document.getElementById('grandTotal1').innerHTML = `₹ ${subTotal + gstTotal}`
 
 	// if(document.getElementById('foc').checked) document.getElementById('grandTotal').innerHTML = `₹ 0`
 }
@@ -278,4 +279,118 @@ const renderCart = (product) => {
 			<li>₹ ${product.price * product.quantity}.00</li>
 			<li><a class="confirm-text" onclick="removeall(${product.product_id})"><img src="asset/img/icons/delete-2.svg" alt="img"></a></li>
 			</ul>`
+}
+
+
+function validate() {
+	if (confirm('Proceed to payment?')) {
+		let existingCart = localStorage.cart ? JSON.parse(localStorage.cart) : Array()
+		let productList = localStorage.products ? JSON.parse(localStorage.products) : Array()
+
+		if (!existingCart.length) {
+			alert('No products found in cart')
+		} else {
+			const name = document.getElementById('customername').value
+			const email = document.getElementById('customeremail').value
+			const phone = document.getElementById('custoemrphone').value
+			// const razorpay_payment_url = document.getElementById('razorpay_url').value ? document.getElementById('razorpay_url').value : ''
+			// const deliveryCharge = localStorage.deliveryCharge ? parseInt(localStorage.deliveryCharge) : 0
+			// const miscellaneousCharge = localStorage.miscellaneousCharge ? parseInt(localStorage.miscellaneousCharge) : 0
+			// const address = document.getElementById('address').value
+
+			// if(!phone || !name || !address){
+			if (!phone || !name ) {
+				alert('Customer details required')
+			} else {
+				if (phone.length != 10) {
+					alert('Invalid mobile number')
+				} else {
+					const ordertype = document.getElementById('ordertype').value
+					const payment = document.getElementById('payment').value
+
+					if (payment == 'default') {
+						alert('Mode of payment required')
+					} else {
+						let subTotal = 0
+						// let waterSubTotal = 0
+						let productCheck = true
+
+						for (let i = 0; i < existingCart.length; i++) {
+							if (productCheck) {
+								const currentProduct = existingCart[i];
+								
+
+								// if(currentProduct.product_id == 67){
+								// 	waterSubTotal += (currentProduct.quantity * currentProduct.product_price)
+								// }
+
+								const checkingProduct = productList.find(product => product.product_id == currentProduct.product_id)
+								if (checkingProduct.count < currentProduct.quantity) {
+									productCheck = false
+								} else {
+									subTotal += (currentProduct.quantity * currentProduct.price)
+								}
+							}
+						}
+
+						// let watergstTotal = parseInt((waterSubTotal * 5 / 100).toFixed())
+
+						if (!productCheck) {
+							alert('Some of the cart products are out of stock')
+						} else {
+							// const couponCharge = localStorage.couponCharge ? localStorage.couponCharge : 0
+
+							let gstTotal = parseInt((subTotal * 5 / 100).toFixed())
+
+							// const loginID = document.getElementById('login_id').value
+							// const zoneId = document.getElementById('zone').value // Select Zone In Institutional Hub Login
+
+							// if (loginID == 86) {
+							// 	gstTotal = parseInt(((subTotal + deliveryCharge + miscellaneousCharge) * 5 / 100).toFixed())
+							// }
+
+							// const advanceCash = document.getElementById('advanceCash')
+							// const advanceCashValue = advanceCash.checked ? advanceCash.value : 0
+
+							// let overall_gst;
+							// if(watergstTotal){
+							// 	overall_gst = gstTotal - watergstTotal;
+							// }else{
+								// overall_gst = gstTotal;
+							// }
+
+							// let freeOfCost = document.getElementById('foc')
+							// let foc_checked = 0
+
+							// if (freeOfCost.checked) {
+							// 	// overall_total = 0
+							// 	overall_gst = 0
+							// 	foc_checked = 1
+							// }
+
+							let overall_total = subTotal + gstTotal
+
+							const payload = {
+								products: existingCart,
+								user: {
+									name,
+									phone,
+									email
+								},
+							
+								orderType: ordertype,
+								paymentMode: payment,
+								gstTotal,
+								sub_total: subTotal,
+								overall_total,
+							}
+							localStorage.payload = JSON.stringify(payload)
+
+							window.location.href = `pos-details.php`
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -39,9 +39,9 @@
     </head>
     <body>
 
-		<!-- <div id="global-loader" >
+		<div id="global-loader" >
 			<div class="whirly-loader"> </div>
-		</div> -->
+		</div>
 		
 		<div class="main-wrappers">
 			<?php include_once("inc/header.php");?>
@@ -736,11 +736,11 @@
 											<div class="col-lg-12 col-sm-12 col-12">
 												<div class="form-group">
 													<label>Customer Name</label>
-													<input type="text" placeholder = "Enter customer name">
+													<input type="text" id="customername" placeholder="Enter customer name">
 													<label>Customer Email</label>
-													<input type="text" placeholder = "Enter customer email">
+													<input type="text" id="customeremail" placeholder="Enter customer email">
 													<label>Customer Phone</label>
-													<input type="text" placeholder = "Enter customer phone number">
+													<input type="text" id="custoemrphone" placeholder="Enter customer phone number">
 												</div>
 											</div>
 											<!-- <div class="col-lg-12 col-sm-12 col-12">
@@ -761,9 +761,10 @@
 										<div class="col-lg-12">
 											<div class="select-split ">
 												<div class="select-group w-100">
-													<select class="select">
-														<option>Walk-in Customer</option>
-														<option>Chris Moris</option>
+													<label>Order type</label>
+													<select class="select" id="ordertype">
+														<option value="1">Walk-in Customer</option>
+														<option value="2">Delivery</option>
 													</select>
 												</div>
 											</div>
@@ -771,21 +772,24 @@
 										<div class="col-lg-12">
 											<div class="select-split">
 												<div class="select-group w-100">
-													<select class="select">
-														<option>Product </option>
-														<option>Barcode</option>
+													<label>payment type</label>
+													<select class="select" id="payment">
+														<option selected disabled value="default">Mode of payment</option>
+														<option value="1">case</option>
+														<option value="2">UPI</option>
+														<option value="3">Razorpay</option>
 													</select>
 												</div>
 											</div>
 										</div>
-										<div class="col-12">
+										<!-- <div class="col-12">
 											<div class="text-end">
 												<a class="btn btn-scanner-set"><img src="asset/img/icons/scanner1.svg" alt="img" class="me-2">Scan bardcode</a>
 											</div>
-										</div>
+										</div> -->
 									</div>
 								</div>
-									<div class="setvaluecash">
+									<!-- <div class="setvaluecash">
 										<ul>
 											<li>
 												<a href="javascript:void(0);" class="paymentmethod">
@@ -806,12 +810,10 @@
 												</a>
 											</li>
 										</ul>
-									</div>		
-									<div class="btn-totallabel">
-										<h5>Checkout</h5>
-										<h6>60.00$</h6>
-									</div>							
-									<div class="btn-pos">
+									</div>	 -->
+									<!-- <a href="#" class="btn-totallabel"><center>submit</center></a> -->
+									<a id="submitButton" onclick="validate(this)"><div class="btn-totallabel"><h5>Checkout</h5><h6 id="grandTotal1"></h6></div></a>				
+									<!-- <div class="btn-pos">
 										<ul>
 											<li>
 												<a class="btn"><img src="asset/img/icons/pause1.svg" alt="img" class="me-1">Hold</a>
@@ -829,7 +831,7 @@
 												<a class="btn"  data-bs-toggle="modal" data-bs-target="#recents"><img src="asset/img/icons/transcation.svg" alt="img" class="me-1"> Transaction</a>
 											</li>
 										</ul>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
